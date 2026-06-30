@@ -11,7 +11,13 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    public function __construct(private CartService $cartService) {}
+    public function __construct()
+    {
+        // Singleton: lấy instance duy nhất thay vì inject mới
+        $this->cartService = CartService::getInstance();
+    }
+
+    private CartService $cartService;
 
     public function index()
     {

@@ -25,10 +25,13 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Services/Payment/PaymentMethodFactory.php",
-            "app/Services/Shipping/ShippingAdapters.php",
-            "app/Services/Shipping/ShippingFeeStrategy.php",
-            "app/Services/Cart/CartPriceDecorator.php"
+            "app/Services/Payment/PaymentMethod.php",
+            "app/Services/Shipping/ShippingProvider.php",
+            "app/Services/Shipping/ShippingStrategy.php",
+            "app/Services/Cart/CartPrice.php",
+            "app/Services/Order/OrderDirector.php",
+            "app/Services/ProductService.php",
+            "app/Services/AuthFacade.php"
         ]
     },
     "autoload-dev": {

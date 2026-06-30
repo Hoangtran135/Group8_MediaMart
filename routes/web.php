@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\OrderController;
 
 // ═══════════════════════════════════════════════════
 //  FRONTEND
@@ -42,6 +44,16 @@ Route::prefix('news')->name('news.')->group(function () {
 
 // Liên hệ
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+// Trang tĩnh
+Route::get('/about',  [PageController::class, 'about'])->name('about');
+Route::get('/policy', [PageController::class, 'policy'])->name('policy');
+
+// Đơn hàng của khách hàng
+Route::prefix('orders')->name('orders.')->middleware('customer.auth')->group(function () {
+    Route::get('/',      [OrderController::class, 'index'])->name('index');
+    Route::get('/{id}',  [OrderController::class, 'detail'])->name('detail');
+});
 
 // Tài khoản khách hàng
 Route::prefix('account')->name('account.')->group(function () {

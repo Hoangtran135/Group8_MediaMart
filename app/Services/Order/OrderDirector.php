@@ -6,10 +6,10 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 
 /**
- * Builder Pattern: dựng đơn hàng (Order + danh sách OrderDetail) qua
- * các bước thiết lập (khách hàng, sản phẩm, thanh toán, vận chuyển,
- * khuyến mãi) bằng các phương thức nối chuỗi (fluent), cuối cùng gọi
- * build() để tạo bản ghi trong database.
+ * Builder Pattern: OrderBuilder dựng đơn hàng (Order + OrderDetail)
+ * qua các bước fluent: forCustomer → withPaymentMethod → withShipping
+ * → withVoucher → addItemsFromCart → build().
+ * File được đặt tên OrderDirector.php (Director điều phối Builder).
  */
 class OrderBuilder
 {

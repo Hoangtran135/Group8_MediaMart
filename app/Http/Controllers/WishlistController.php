@@ -6,7 +6,13 @@ use App\Services\WishlistService;
 
 class WishlistController extends Controller
 {
-    public function __construct(private WishlistService $wishlistService) {}
+    private WishlistService $wishlistService;
+
+    public function __construct()
+    {
+        // Singleton: lấy instance duy nhất thay vì inject mới
+        $this->wishlistService = WishlistService::getInstance();
+    }
 
     public function index()
     {

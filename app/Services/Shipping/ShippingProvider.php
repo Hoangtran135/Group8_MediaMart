@@ -3,10 +3,9 @@
 namespace App\Services\Shipping;
 
 /**
- * Adapter Pattern: GHN và GHTK là 2 "SDK bên thứ ba" giả lập, mỗi SDK có
- * phương thức/tham số trả về khác nhau. Các Adapter bên dưới chuyển đổi
- * (adapt) chúng về cùng một interface ShippingProvider để hệ thống dùng
- * thống nhất, không phụ thuộc vào chi tiết của từng SDK.
+ * Adapter Pattern: GhnShippingAdapter và GhtkShippingAdapter "bọc"
+ * các API/SDK có interface khác nhau (GHN trả mảng, GHTK trả float)
+ * thành một interface chung ShippingProvider::getFee().
  */
 interface ShippingProvider
 {
@@ -15,9 +14,6 @@ interface ShippingProvider
     public function getFee(int $orderTotal): int;
 }
 
-/**
- * SDK giả lập của GHN - trả về mảng kết quả với cấu trúc riêng.
- */
 class GhnApiClient
 {
     public function calculateFee(array $payload): array
@@ -33,9 +29,6 @@ class GhnApiClient
     }
 }
 
-/**
- * SDK giả lập của GHTK - trả về số tiền dạng float trực tiếp.
- */
 class GhtkApiSdk
 {
     public function estimateShippingCost(float $orderAmount): float
@@ -44,9 +37,6 @@ class GhtkApiSdk
     }
 }
 
-/**
- * Adapter cho GHN: chuyển đổi calculateFee() -> getFee().
- */
 class GhnShippingAdapter implements ShippingProvider
 {
     public function __construct(private GhnApiClient $client = new GhnApiClient()) {}
@@ -64,9 +54,6 @@ class GhnShippingAdapter implements ShippingProvider
     }
 }
 
-/**
- * Adapter cho GHTK: chuyển đổi estimateShippingCost() -> getFee().
- */
 class GhtkShippingAdapter implements ShippingProvider
 {
     public function __construct(private GhtkApiSdk $client = new GhtkApiSdk()) {}

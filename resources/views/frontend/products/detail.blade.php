@@ -58,7 +58,7 @@
                 @endif
             </div>
 
-            <p class="detail-desc">{{ $product->description }}</p>
+            <p class="detail-desc">{!! $product->description !!}</p>
 
             {{-- Actions --}}
             <div class="d-flex gap-2 flex-wrap">

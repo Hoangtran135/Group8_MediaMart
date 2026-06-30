@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Customer;
+use App\Services\AuthFacade;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
+/**
+ * Facade Pattern: AccountController chỉ điều phối request/response,
+ * mọi logic xác thực được ứy thác toàn bộ cho AuthFacade.
+ */
 class AccountController extends Controller
 {
     public function loginForm()
     {
-        if (Auth::guard('customer')->check()) {
+        if (AuthFacade::isLoggedIn()) {
             return redirect()->route('home');
         }
 
@@ -22,9 +24,7 @@ class AccountController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (Auth::guard('customer')->attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-            $request->session()->regenerate();
-
+        if (AuthFacade::login($request)) {
             return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
         }
 
@@ -33,7 +33,7 @@ class AccountController extends Controller
 
     public function registerForm()
     {
-        if (Auth::guard('customer')->check()) {
+        if (AuthFacade::isLoggedIn()) {
             return redirect()->route('home');
         }
 
@@ -42,22 +42,14 @@ class AccountController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        Customer::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone ?? '',
-            'address'  => $request->address ?? '',
-            'password' => Hash::make($request->password),
-        ]);
+        AuthFacade::register($request);
 
         return redirect()->route('account.login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
     }
 
     public function logout(Request $request)
     {
-        Auth::guard('customer')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        AuthFacade::logout($request);
 
         return redirect()->route('home');
     }

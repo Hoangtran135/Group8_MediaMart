@@ -3,9 +3,10 @@
 namespace App\Services\Cart;
 
 /**
- * Decorator Pattern: bọc thêm các "lớp" khuyến mãi (giảm % , giảm tiền,
- * freeship) lên trên tổng tiền gốc của đơn hàng mà không cần sửa class
- * gốc. Mỗi decorator có thể chồng lên nhau.
+ * Decorator Pattern: BaseCartPrice là thành phần gốc (giá thuần).
+ * Các Decorator (PercentDiscount, AmountDiscount, Freeship) “bọc”
+ * thêm từng loại khuyến mãi mà không sửa class gốc, có thể
+ * chồng nhiều lớp lên nhau.
  */
 interface CartPriceComponent
 {

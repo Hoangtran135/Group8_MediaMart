@@ -9,10 +9,10 @@ use App\Services\Cart\BaseCartPrice;
 use App\Services\Cart\CartPriceComponent;
 use App\Services\Cart\FreeshipDecorator;
 use App\Services\Cart\PercentDiscountDecorator;
-use App\Services\Order\OrderBuilder;
-use App\Services\Payment\PaymentMethod;
-use App\Services\Payment\PaymentMethodFactory;
-use App\Services\Shipping\ShippingFeeCalculator;
+use App\Services\Order\OrderBuilder;       
+use App\Services\Payment\PaymentMethod;    
+use App\Services\Payment\PaymentMethodFactory; // PaymentMethod.php
+use App\Services\Shipping\ShippingFeeCalculator; // ShippingStrategy.php
 use App\Support\SiteSettings;
 use Illuminate\Support\Facades\Event;
 

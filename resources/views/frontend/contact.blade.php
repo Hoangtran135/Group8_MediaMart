@@ -15,14 +15,14 @@
                 <div class="contact-info-icon"><i class="fa fa-map-marker-alt"></i></div>
                 <div>
                     <div style="font-weight:600;margin-bottom:2px;">Địa chỉ</div>
-                    <div style="color:var(--gray-700);font-size:14px;">25 Tràng Tiền, Hoàn Kiếm, Hà Nội</div>
+                    <div style="color:var(--gray-700);font-size:14px;">55 Giải Phóng, Hà Nội</div>
                 </div>
             </div>
             <div class="contact-info-item">
                 <div class="contact-info-icon"><i class="fa fa-phone"></i></div>
                 <div>
                     <div style="font-weight:600;margin-bottom:2px;">Hotline</div>
-                    <div style="color:var(--red);font-size:16px;font-weight:700;">1800 1234</div>
+                    <div style="color:var(--red);font-size:16px;font-weight:700;">0378106753</div>
                     <div style="color:var(--gray-500);font-size:12px;">Miễn phí – 8:00 đến 21:00</div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="contact-info-icon"><i class="fa fa-envelope"></i></div>
                 <div>
                     <div style="font-weight:600;margin-bottom:2px;">Email</div>
-                    <div style="color:var(--gray-700);font-size:14px;">support@mediamart.vn</div>
+                    <div style="color:var(--gray-700);font-size:14px;">hoangtranxuan04@gmaill.com</div>
                 </div>
             </div>
             <div class="contact-info-item">

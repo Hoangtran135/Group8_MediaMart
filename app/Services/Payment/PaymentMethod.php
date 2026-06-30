@@ -5,6 +5,11 @@ namespace App\Services\Payment;
 use App\Models\Order;
 use InvalidArgumentException;
 
+/**
+ * Factory Method Pattern: định nghĩa interface PaymentMethod và factory
+ * PaymentMethodFactory để tạo đối tượng thanh toán (COD/VNPay/Momo)
+ * mà không cần client biết class cụ thể nào được khởi tạo.
+ */
 interface PaymentMethod
 {
     public function code(): string;

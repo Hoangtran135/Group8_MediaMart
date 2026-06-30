@@ -5,8 +5,25 @@ namespace App\Services;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Singleton Pattern: đảm bảo chỉ tồn tại một instance CartService
+ * trong suốt vòng đời request, tránh khởi tạo lại giỏ hàng nhiều lần.
+ */
 class CartService
 {
+    private static ?CartService $instance = null;
+
+    private function __construct() {}
+
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     public function get(): array
     {
         return Session::get('cart', []);

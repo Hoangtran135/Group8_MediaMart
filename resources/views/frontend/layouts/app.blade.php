@@ -36,6 +36,10 @@
                         <i class="fa fa-user-circle" style="color:var(--red);"></i>
                         <strong>{{ Auth::guard('customer')->user()->name }}</strong>
                     </span>
+                    <a href="{{ route('orders.index') }}" class="btn-mm-icon btn-mm-orders">
+                        <i class="fa fa-box"></i>
+                        <span class="d-none d-lg-inline">Đơn hàng</span>
+                    </a>
                     <form action="{{ route('account.logout') }}" method="POST" style="display:inline;">
                         @csrf
                         <button type="submit" class="btn-mm-icon btn-mm-logout">
@@ -102,6 +106,16 @@
                     </a>
                 </div>
                 <div class="nav-item">
+                    <a href="{{ route('about') }}" class="nav-link">
+                        <i class="fa fa-building"></i> Giới thiệu
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ route('policy') }}" class="nav-link">
+                        <i class="fa fa-shield-halved"></i> Chính sách
+                    </a>
+                </div>
+                <div class="nav-item">
                     <a href="{{ route('contact') }}" class="nav-link">
                         <i class="fa fa-phone"></i> Liên hệ
                     </a>
@@ -159,14 +173,17 @@
                 <h5>Liên kết</h5>
                 <a href="{{ route('home') }}" class="footer-link">Trang chủ</a>
                 <a href="{{ route('news.index') }}" class="footer-link">Tin tức công nghệ</a>
+                <a href="{{ route('about') }}" class="footer-link">Giới thiệu</a>
+                <a href="{{ route('policy') }}" class="footer-link">Chính sách</a>
                 <a href="{{ route('contact') }}" class="footer-link">Liên hệ</a>
+                <a href="{{ route('orders.index') }}" class="footer-link">Đơn hàng của tôi</a>
                 <a href="{{ route('account.login') }}" class="footer-link">Tài khoản</a>
             </div>
             <div class="col-md-3">
                 <h5>Liên hệ</h5>
-                <div class="footer-contact-item"><i class="fa fa-map-marker-alt"></i> 25 Tràng Tiền, Hoàn Kiếm, Hà Nội</div>
-                <div class="footer-contact-item"><i class="fa fa-phone"></i> 1800 1234 (miễn phí)</div>
-                <div class="footer-contact-item"><i class="fa fa-envelope"></i> support@mediamart.vn</div>
+                <div class="footer-contact-item"><i class="fa fa-map-marker-alt"></i> 55 Giải Phóng, Hà Nội</div>
+                <div class="footer-contact-item"><i class="fa fa-phone"></i> 0378106753</div>
+                <div class="footer-contact-item"><i class="fa fa-envelope"></i> hoangtranxuan04@gmaill.com</div>
                 <div class="footer-contact-item"><i class="fa fa-clock"></i> T2–T7: 8:00 – 21:00</div>
             </div>
         </div>

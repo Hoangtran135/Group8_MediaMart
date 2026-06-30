@@ -6,9 +6,9 @@ use App\Support\SiteSettings;
 use InvalidArgumentException;
 
 /**
- * Strategy Pattern: mỗi cách tính phí vận chuyển là một "thuật toán"
- * có thể hoán đổi cho nhau (tiêu chuẩn / hỏa tốc / miễn phí), dùng
- * chung một interface calculate().
+ * Strategy Pattern: mỗi hình thức vận chuyển (Tiêu chuẩn / Hỏa tốc /
+ * Miễn phí) là một Strategy riêng, có thể hoán đổi qua ShippingFeeCalculator.
+ * Kết hợp với Adapter Pattern để lấy phí thực tế từ GHN/GHTK.
  */
 interface ShippingFeeStrategy
 {
