@@ -742,6 +742,22 @@ a:hover { color: var(--red); }
 .btn-sort:hover { border-color: var(--red); color: var(--red); }
 .btn-sort.active { background: var(--red); color: #fff; border-color: var(--red); }
 
+.price-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.price-input {
+  width: 120px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--gray-200);
+  font-size: 13px;
+}
+.price-input:focus { outline: none; border-color: var(--red); }
+
 /* ===================== SEARCH BAR ===================== */
 .search-filters {
   background: #fff;

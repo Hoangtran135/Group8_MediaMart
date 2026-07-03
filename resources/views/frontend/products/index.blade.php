@@ -24,6 +24,24 @@
        class="btn-sort {{ $order === 'nameAsc' ? 'active' : '' }}">A → Z</a>
 </div>
 
+{{-- Price filter --}}
+<form method="GET" action="{{ url()->current() }}" class="price-filter-bar">
+    @if($categoryId)
+        <input type="hidden" name="category_id" value="{{ $categoryId }}">
+    @endif
+    <input type="hidden" name="order" value="{{ $order }}">
+    <span class="sort-label">Khoảng giá:</span>
+    <input type="number" name="from_price" placeholder="Từ" min="0" step="1000"
+           value="{{ $fromPrice ?? '' }}" class="price-input">
+    <span>-</span>
+    <input type="number" name="to_price" placeholder="Đến" min="0" step="1000"
+           value="{{ $toPrice ?? '' }}" class="price-input">
+    <button type="submit" class="btn-sort">Lọc</button>
+    @if($fromPrice !== null || $toPrice !== null)
+        <a href="{{ request()->fullUrlWithQuery(['from_price' => null, 'to_price' => null]) }}" class="btn-sort">Xóa lọc</a>
+    @endif
+</form>
+
 @forelse($products as $product)
     @if($loop->first)
         <div class="products-grid products-grid-4">

@@ -35,6 +35,8 @@ class AuthFacade
         )) {
             $request->session()->regenerate();
 
+            CartService::getInstance()->mergeSessionCartIntoDb(Auth::guard('customer')->id());
+
             return true;
         }
 

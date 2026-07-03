@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Events\OrderStatusChanged;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Support\Facades\Event;
 
 class OrderService
 {
@@ -16,6 +18,10 @@ class OrderService
     {
         $order = Order::with('details')->findOrFail($orderId);
         $old   = $order->status;
+
+        if ($old === $newStatus) {
+            return;
+        }
 
         $order->update(['status' => $newStatus]);
 
@@ -36,5 +42,8 @@ class OrderService
                     ->increment('stock', $detail->number);
             }
         }
+
+        // Observer: thông báo cho khách hàng qua email
+        Event::dispatch(new OrderStatusChanged($order, $old, $newStatus));
     }
 }

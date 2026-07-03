@@ -81,12 +81,24 @@ class ProductSortStrategyFactory
 
 class ProductService
 {
-    public function listByCategory(?int $categoryId, string $order): LengthAwarePaginator
-    {
+    public function listByCategory(
+        ?int $categoryId,
+        string $order,
+        ?float $fromPrice = null,
+        ?float $toPrice = null
+    ): LengthAwarePaginator {
         $query = Product::query();
 
         if ($categoryId) {
             $query->inCategory($categoryId);
+        }
+
+        if ($fromPrice !== null) {
+            $query->where('price', '>=', $fromPrice);
+        }
+
+        if ($toPrice !== null) {
+            $query->where('price', '<=', $toPrice);
         }
 
         // Strategy Pattern: áp dụng chiến lược sắp xếp

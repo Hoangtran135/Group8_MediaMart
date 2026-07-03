@@ -4,8 +4,10 @@
 namespace App\Providers;
 
 use App\Events\OrderPlaced;
+use App\Events\OrderStatusChanged;
 use App\Listeners\SendOrderEmailNotification;
 use App\Listeners\SendOrderSmsNotification;
+use App\Listeners\SendOrderStatusEmailNotification;
 use App\Models\NewsArticle;
 use App\Models\Product;
 use App\Observers\NewsArticleObserver;
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
         Event::listen(OrderPlaced::class, SendOrderEmailNotification::class);
         Event::listen(OrderPlaced::class, SendOrderSmsNotification::class);
+        Event::listen(OrderStatusChanged::class, SendOrderStatusEmailNotification::class);
     }
 }

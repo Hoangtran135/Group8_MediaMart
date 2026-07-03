@@ -24,6 +24,9 @@
                 <label class="form-label">Mật khẩu</label>
                 <input type="password" name="password" class="form-input" placeholder="••••••••" required>
             </div>
+            <div class="form-group" style="text-align:right;margin-top:-8px;">
+                <a href="{{ route('account.password.request') }}" style="font-size:13px;color:var(--red);">Quên mật khẩu?</a>
+            </div>
             <div class="form-group d-flex align-items-center gap-2">
                 <input type="checkbox" name="remember" id="remember" style="width:15px;height:15px;accent-color:var(--red);">
                 <label for="remember" style="font-size:13px;color:var(--gray-700);cursor:pointer;">Ghi nhớ đăng nhập</label>
