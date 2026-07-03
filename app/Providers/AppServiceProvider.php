@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Providers;
 
 use App\Events\OrderPlaced;

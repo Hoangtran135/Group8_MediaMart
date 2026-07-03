@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\NewsRequest;
 use App\Models\NewsArticle;
 use App\Services\ImageUploadService;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminNewsController extends Controller
 {
