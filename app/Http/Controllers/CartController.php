@@ -8,7 +8,6 @@ use App\Services\CheckoutFacade;
 use App\Services\Shipping\ShippingFeeCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -77,6 +76,12 @@ class CartController extends Controller
             return redirect()->route('cart.index')->with('error', 'Giỏ hàng trống!');
         }
 
+        $stockErrors = $this->cartService->validateStock();
+
+        if (!empty($stockErrors)) {
+            return redirect()->route('cart.index')->with('error', implode(' ', $stockErrors));
+        }
+
         $result = CheckoutFacade::placeOrder(
             cart: $cart,
             customerId: Auth::guard('customer')->id(),
@@ -85,7 +90,7 @@ class CartController extends Controller
             voucherCode: $request->input('voucher_code'),
         );
 
-        Session::forget('cart');
+        $this->cartService->clear();
 
         if ($result['paymentMethod']->requiresQrPayment()) {
             return redirect()->route('payment.show', $result['order']->id);

@@ -129,21 +129,8 @@
     </nav>
 </div>
 
-{{-- Flash messages --}}
-<div class="container" style="padding-top:14px;">
-    @if(session('success'))
-        <div class="mm-alert mm-alert-success">
-            <span><i class="fa fa-check-circle me-2"></i>{{ session('success') }}</span>
-            <button class="mm-alert-close" onclick="this.parentElement.remove()">&times;</button>
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="mm-alert mm-alert-error">
-            <span><i class="fa fa-exclamation-circle me-2"></i>{{ session('error') }}</span>
-            <button class="mm-alert-close" onclick="this.parentElement.remove()">&times;</button>
-        </div>
-    @endif
-</div>
+{{-- Flash messages: hiển thị qua toast (góc phải trên) thay vì banner inline,
+     tránh hiện trùng 2 thông báo cho cùng một session flash. --}}
 
 {{-- Main content --}}
 <div id="mm-content">

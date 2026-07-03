@@ -46,12 +46,11 @@
                         </td>
                         <td style="font-weight:700;">{{ number_format($item['price'] * $item['number']) }}₫</td>
                         <td>
-                            <form action="{{ route('cart.remove', $id) }}" method="POST">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn-remove" title="Xóa">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
-                            </form>
+                            {{-- Nút submit form="remove-form-{{ $id }}" bên ngoài, tránh lồng
+                                 <form> trong <form> (HTML không hợp lệ, gây submit sai method). --}}
+                            <button type="submit" form="remove-form-{{ $id }}" class="btn-remove" title="Xóa">
+                                <i class="fa fa-trash-alt"></i>
+                            </button>
                         </td>
                     </tr>
                     @endforeach
@@ -76,6 +75,12 @@
             </div>
         </div>
     </form>
+
+    @foreach($cart as $id => $item)
+        <form id="remove-form-{{ $id }}" action="{{ route('cart.remove', $id) }}" method="POST" class="d-none">
+            @csrf @method('DELETE')
+        </form>
+    @endforeach
 
     {{-- Phương thức vận chuyển + thanh toán + voucher --}}
     <div class="payment-method-box mt-4">

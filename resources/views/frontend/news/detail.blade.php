@@ -15,7 +15,7 @@
                 <img src="{{ $article->photo_url }}" alt="{{ $article->name }}"
                      style="width:100%;max-height:420px;object-fit:cover;border-radius:8px;margin-bottom:20px;">
             @endif
-            <div style="line-height:1.85;color:var(--gray-700);">{!! $article->content !!}</div>
+            <div id="article-content" style="line-height:1.85;color:var(--gray-700);">{!! $article->content !!}</div>
         </div>
     </div>
 
@@ -40,4 +40,16 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+// Ảnh trong nội dung bài viết cũ có thể trỏ tới nguồn bên ngoài đã gỡ/đổi
+// URL — ẩn thẻ ảnh nếu tải lỗi thay vì hiện icon vỡ.
+document.querySelectorAll('#article-content img').forEach(function (img) {
+    img.addEventListener('error', function () {
+        this.style.display = 'none';
+    });
+});
+</script>
+@endpush
 @endsection

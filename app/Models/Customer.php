@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomerResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -14,6 +15,11 @@ class Customer extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = ['password' => 'hashed'];
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new CustomerResetPasswordNotification($token));
+    }
 
     public function orders()
     {

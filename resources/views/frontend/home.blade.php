@@ -51,7 +51,7 @@
                     <div class="news-body">
                         @if($article->hot)<span class="news-badge">HOT</span>@endif
                         <a href="{{ route('news.detail', $article->id) }}" class="news-title d-block">{{ Str::limit($article->name, 65) }}</a>
-                        <p class="news-desc mt-2">{{ Str::limit($article->description, 85) }}</p>
+                        <p class="news-desc mt-2">{{ Str::limit(strip_tags(html_entity_decode($article->description)), 85) }}</p>
                     </div>
                 </div>
             @endforeach

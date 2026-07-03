@@ -17,9 +17,11 @@ use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminVoucherController;
+use App\Http\Controllers\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ForgotPasswordController;
 
 // ═══════════════════════════════════════════════════
 //  FRONTEND
@@ -59,10 +61,15 @@ Route::prefix('orders')->name('orders.')->middleware('customer.auth')->group(fun
 // Tài khoản khách hàng
 Route::prefix('account')->name('account.')->group(function () {
     Route::get('/login',     [AccountController::class, 'loginForm'])->name('login');
-    Route::post('/login',    [AccountController::class, 'login'])->name('login.post');
+    Route::post('/login',    [AccountController::class, 'login'])->name('login.post')->middleware('throttle:5,1');
     Route::get('/register',  [AccountController::class, 'registerForm'])->name('register');
-    Route::post('/register', [AccountController::class, 'register'])->name('register.post');
+    Route::post('/register', [AccountController::class, 'register'])->name('register.post')->middleware('throttle:5,1');
     Route::post('/logout',   [AccountController::class, 'logout'])->name('logout');
+
+    Route::get('/forgot-password',  [ForgotPasswordController::class, 'showForm'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'send'])->name('password.email')->middleware('throttle:5,1');
+    Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password',  [ForgotPasswordController::class, 'reset'])->name('password.update')->middleware('throttle:5,1');
 
     Route::middleware('customer.auth')->group(function () {
         Route::get('/profile',           [AccountController::class, 'profile'])->name('profile');
@@ -100,8 +107,13 @@ Route::prefix('wishlist')->name('wishlist.')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/login',   [AdminLoginController::class, 'showForm'])->name('login');
-    Route::post('/login',  [AdminLoginController::class, 'login'])->name('login.post');
+    Route::post('/login',  [AdminLoginController::class, 'login'])->name('login.post')->middleware('throttle:5,1');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
+
+    Route::get('/forgot-password',  [AdminForgotPasswordController::class, 'showForm'])->name('password.request');
+    Route::post('/forgot-password', [AdminForgotPasswordController::class, 'send'])->name('password.email')->middleware('throttle:5,1');
+    Route::get('/reset-password/{token}', [AdminForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password',  [AdminForgotPasswordController::class, 'reset'])->name('password.update')->middleware('throttle:5,1');
 
     Route::middleware('admin.auth')->group(function () {
 

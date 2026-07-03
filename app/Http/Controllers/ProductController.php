@@ -18,11 +18,13 @@ class ProductController extends Controller
     {
         $categoryId = $request->integer('category_id') ?: null;
         $order      = $request->get('order', 'newest');
+        $fromPrice  = $request->filled('from_price') ? (float) $request->get('from_price') : null;
+        $toPrice    = $request->filled('to_price') ? (float) $request->get('to_price') : null;
 
-        $products = $this->productService->listByCategory($categoryId, $order);
+        $products = $this->productService->listByCategory($categoryId, $order, $fromPrice, $toPrice);
         $category = $categoryId ? Category::find($categoryId) : null;
 
-        return view('frontend.products.index', compact('products', 'category', 'order', 'categoryId'));
+        return view('frontend.products.index', compact('products', 'category', 'order', 'categoryId', 'fromPrice', 'toPrice'));
     }
 
     public function detail(int $id)
