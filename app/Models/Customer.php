@@ -10,11 +10,14 @@ class Customer extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'address', 'phone', 'password'];
+    protected $fillable = ['name', 'email', 'address', 'phone', 'password', 'is_active'];
 
     protected $hidden = ['password', 'remember_token'];
 
-    protected $casts = ['password' => 'hashed'];
+    protected $casts = [
+        'password' => 'hashed',
+        'is_active' => 'boolean',
+    ];
 
     public function sendPasswordResetNotification($token): void
     {

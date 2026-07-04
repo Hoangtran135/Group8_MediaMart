@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\AccountLockedException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Customer;
@@ -18,6 +19,12 @@ class AuthFacade
 
     public static function login(LoginRequest $request): bool
     {
+        $customer = Customer::where('email', $request->email)->first();
+
+        if ($customer && ! $customer->is_active) {
+            throw new AccountLockedException;
+        }
+
         if (Auth::guard('customer')->attempt(
             $request->only('email', 'password'),
             $request->boolean('remember')

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminForgotPasswordController;
 use App\Http\Controllers\Admin\AdminLoginController;
@@ -114,5 +115,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('orders/export/csv', [AdminOrderController::class, 'exportCsv'])->name('orders.export');
 
         Route::resource('vouchers', AdminVoucherController::class);
+
+        Route::prefix('customers')->name('customers.')->group(function () {
+            Route::get('/', [AdminCustomerController::class, 'index'])->name('index');
+            Route::get('/{id}', [AdminCustomerController::class, 'show'])->name('show');
+            Route::post('/{id}/toggle-active', [AdminCustomerController::class, 'toggleActive'])->name('toggle-active');
+        });
     });
 });

@@ -14,6 +14,14 @@ class CustomerAuthenticate
             return redirect()->route('account.login')->with('error', 'Vui lòng đăng nhập để tiếp tục.');
         }
 
+        if (! Auth::guard('customer')->user()->is_active) {
+            Auth::guard('customer')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('account.login')->with('error', 'Tài khoản của bạn đã bị khóa.');
+        }
+
         return $next($request);
     }
 }

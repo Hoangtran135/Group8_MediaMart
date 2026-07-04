@@ -20,14 +20,6 @@ class AdminDashboardController extends Controller
         $totalRevenue = Order::where('status', Order::STATUS_DELIVERED)->get()->sum('total');
         $recentOrders = Order::with('customer')->latest()->take(10)->get();
 
-        $revenueByMonth = Order::where('status', Order::STATUS_DELIVERED)
-            ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
-            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as month, SUM(shipping_fee - discount_amount) as extra")
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get()
-            ->keyBy('month');
-
         $revenueChartData = collect();
         for ($i = 11; $i >= 0; $i--) {
             $month = now()->subMonths($i)->format('Y-m');

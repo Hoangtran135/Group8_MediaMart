@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AccountLockedException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\AuthFacade;
@@ -22,8 +23,12 @@ class AccountController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (AuthFacade::login($request)) {
-            return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+        try {
+            if (AuthFacade::login($request)) {
+                return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
+            }
+        } catch (AccountLockedException $e) {
+            return back()->withErrors(['email' => $e->getMessage()])->onlyInput('email');
         }
 
         return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng.'])->onlyInput('email');

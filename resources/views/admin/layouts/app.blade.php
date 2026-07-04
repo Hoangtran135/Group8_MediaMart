@@ -48,6 +48,9 @@
             <li class="{{ request()->routeIs('admin.vouchers.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.vouchers.index') }}"><i class="fa fa-tag"></i> Voucher</a>
             </li>
+            <li class="{{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.customers.index') }}"><i class="fa fa-user"></i> Khách hàng</a>
+            </li>
             <li class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.users.index') }}"><i class="fa fa-users"></i> Quản trị viên</a>
             </li>
